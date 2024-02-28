@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import useSWR from 'swr'
-import RecVideos from '../Components/RecVideos';
+import App from '../App';
 
 
 const fetcher = url => fetch(url).then(r => r.json())
@@ -22,7 +22,7 @@ function VideoPage() {
         </div>
         <div>
             <h1>recommended videos</h1>
-            {/* <RecVideos></RecVideos> */}
+            <App></App>
         </div>
     </div>
   )
