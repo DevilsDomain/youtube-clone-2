@@ -11,11 +11,16 @@ function VideoPage() {
   if (isLoading) return <div>loading...</div>
   return (
     <div>
-        <p>{data.title}</p>
-        <iframe width="420" height="315" 
-        src={`${data.url.substring(0,24)}embed/${videoID}`}>
-        </iframe>
-        <p>{data.description}</p>
+        <div>
+            <p>{data.title}</p>
+            <iframe width="420" height="315" 
+            src={`${data.url.substring(0,24)}embed/${videoID}`}>
+            </iframe>
+            <p>{data.description}</p>
+        </div>
+        <div>
+            <h1>recommended videos</h1>
+        </div>
     </div>
   )
 }

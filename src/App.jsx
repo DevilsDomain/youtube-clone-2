@@ -17,7 +17,7 @@ function App() {
     <>
       <div>
         {data.map((video) => (
-          <Link to={`/${video.id.videoId}`} key={video.id.videoId}>
+          <Link to={`video/${video.id.videoId}`} key={video.id.videoId}>
             {video.title}
           </Link>
         ))}
