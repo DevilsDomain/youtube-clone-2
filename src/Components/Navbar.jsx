@@ -17,6 +17,8 @@ function Navbar() {
         <LogoLink to="/">
         <Logo src={LogoPNG} alt="Youtube logo" />
         </LogoLink>
+        <input />
+        <button>search</button>
     </div>
   )
 }
