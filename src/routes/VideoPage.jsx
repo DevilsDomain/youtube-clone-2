@@ -22,7 +22,7 @@ function VideoPage() {
         </div>
         <div>
             <h1>recommended videos</h1>
-            <RecVideos></RecVideos>
+            {/* <RecVideos></RecVideos> */}
         </div>
     </div>
   )

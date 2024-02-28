@@ -1,17 +1,19 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import useSWR from 'swr'
+// App.js
+import { Link } from 'react-router-dom';
+import useSWR from 'swr';
+import { useSearch } from './Components/SearchContext';
 
-const fetcher = url => fetch(url).then(r => r.json())
+const fetcher = (url) => fetch(url).then((r) => r.json());
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState("cats")
+  const { searchQuery } = useSearch();
+  const { data, error, isLoading } = useSWR(
+    `https://youtube.thorsteinsson.is/api/search?q=${searchQuery}`,
+    fetcher
+  );
 
-  const { data, error, isLoading } = useSWR(`https://youtube.thorsteinsson.is/api/search?q=${searchQuery}`, fetcher)
-  if (error) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div>
-  console.log(data[0])
-  console.log(data[0].id)
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <>
@@ -23,7 +25,7 @@ function App() {
         ))}
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

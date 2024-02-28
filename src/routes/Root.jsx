@@ -1,15 +1,14 @@
-import Navbar from "../Components/Navbar"
-import { Outlet } from "react-router-dom";
+import Navbar from '../Components/Navbar';
+import { Outlet } from 'react-router-dom';
 
+function Root() {
 
-
-function root() {
   return (
     <div>
-        <Navbar></Navbar>
-        <Outlet />
+      <Navbar />
+      <Outlet />
     </div>
-  )
+  );
 }
 
-export default root
+export default Root;
