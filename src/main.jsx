@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Root from './routes/Root.jsx';
+import VideoPage from './routes/VideoPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
       },
+      {
+        path: "/:videoID",
+        element: <VideoPage />
+      }
     ],
   },
 ]);
