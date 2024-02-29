@@ -1,10 +1,18 @@
-// App.js
-import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 import { useSearch } from './Components/SearchContext';
 import Video from './Components/Video';
+import styled from 'styled-components';
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
+
+const VideosContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1400px;
+  margin: 0 auto; 
+  padding-top: 50px;
+`;
 
 function App() {
   const { searchQuery } = useSearch();
@@ -12,18 +20,16 @@ function App() {
     `https://youtube.thorsteinsson.is/api/search?q=${searchQuery}`,
     fetcher
   );
+
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  console.log(data[0])
 
   return (
-    <>
-      <div>
-        {data.map((video) => (
-        <Video video={video} key={video.id.videoId}/>
-        ))}
-      </div>
-    </>
+    <VideosContainer>
+      {data.map((video) => (
+        <Video video={video} key={video.id.videoId} />
+      ))}
+    </VideosContainer>
   );
 }
 

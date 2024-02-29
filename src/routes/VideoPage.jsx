@@ -15,9 +15,8 @@ function VideoPage() {
   try {
     iframeSrc = `${data.url.substring(0, 24)}embed/${videoID}`;
   } catch (err) {
-    // Handle the error, set a flag, or log it
     console.error("Error creating iframe src:", err);
-    iframeSrc = null; // Set to null or some default value
+    iframeSrc = null;
   }
 
   return (
