@@ -6,12 +6,15 @@ import styled from 'styled-components';
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 const VideosContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  max-width: 1400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
   margin: 0 auto; 
   padding-top: 50px;
+  max-width: 1300px;
+  gap: 20px 20px; 
 `;
 
 function App() {

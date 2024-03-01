@@ -6,7 +6,7 @@ const VideoContainer = styled(Link)`
   border-radius: 20px;
   text-decoration: none; /* Remove text decoration from VideoContainer */
   color: black;
-  width: 400px;
+  width: 350px;
   font-family: "Roboto", sans-serif;
 
   div p {
@@ -15,7 +15,7 @@ const VideoContainer = styled(Link)`
     padding-left: 10px;
   }
   div img {
-    width: 400px;
+    width: 350px;
     height: 200px;
     border-radius: 20px;
   }
@@ -38,7 +38,6 @@ function Video({ video }) {
   return (
     <VideoContainer to={`/video/${video.id.videoId}`}>
       <div>
-        {/* <duration>{video.duration_raw}</duration> */}
         <img src={video.snippet.thumbnails.url} alt={video.title} />
         <Title>{video.title}</Title>
         <TitleThin>{video.channelName}</TitleThin>
