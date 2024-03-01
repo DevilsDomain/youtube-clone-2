@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -21,6 +22,7 @@ const VideoContainer = styled(Link)`
   }
 `;
 
+
 const Title = styled.p`
     font-weight: 700;
     font-style: normal;
@@ -37,12 +39,12 @@ const TitleThin = styled.p`
 function Video({ video }) {
   return (
     <VideoContainer to={`/video/${video.id.videoId}`}>
-      <div>
+      <motion.div whileHover={{scale: 1.07}}>
         <img src={video.snippet.thumbnails.url} alt={video.title} />
         <Title>{video.title}</Title>
         <TitleThin>{video.channelName}</TitleThin>
         <TitleThin>{video.views} views</TitleThin>
-      </div>
+      </motion.div>
     </VideoContainer>
   );
 }
