@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -20,13 +21,53 @@ const ModalContent = styled.div`
 `;
 
 function Modal() {
+  // Dummy playlist data
+  const [playlists, setPlaylists] = useState(['Playlist 1', 'Playlist 2', 'Playlist 3']);
+  const [showInputForm, setShowInputForm] = useState(false);
+  const [newPlaylistName, setNewPlaylistName] = useState('');
+
+  const handleCreatePlaylistClick = () => {
+    setShowInputForm(true);
+  };
+
+  const handleCreateClick = () => {
+    // Handle the logic for creating the playlist
+    console.log('Creating playlist with name:', newPlaylistName);
+    // Update playlists state
+    setPlaylists((prevPlaylists) => [...prevPlaylists, newPlaylistName]);
+    // Reset the state and close inpt
+    setShowInputForm(false);
+    setNewPlaylistName('');
+  };
+
   return (
     <ModalOverlay>
       <ModalContent>
-        <button>create playlist</button>
+        {showInputForm ? (
+          <>
+            <input
+              type="text"
+              placeholder="Enter playlist name"
+              value={newPlaylistName}
+              onChange={(e) => setNewPlaylistName(e.target.value)}
+            />
+            <button onClick={handleCreateClick}>Create</button>
+          </>
+        ) : (
+          <>
+          <ul>
+          {playlists.map((playlist, index) => (
+            <li key={index}>
+              <p>{playlist}</p>
+            </li>
+          ))}
+          </ul>
+          <button onClick={handleCreatePlaylistClick}>Create New Playlist</button>
+          </>
+        )}
       </ModalContent>
     </ModalOverlay>
-  )
+  );
 }
 
-export default Modal
+export default Modal;
