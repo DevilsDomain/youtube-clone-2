@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import options from "../assets/options.svg"
 import { useState } from "react";
+import Modal from "./Modal";
 
 const VideoContainer = styled(Link)`
   display: flex;
@@ -47,6 +48,7 @@ const Options = styled.img`
 
 function Video({ video }) {
   const [toggle, setToggle] = useState(false)
+  const [modal, setModal] = useState(false)
   return (
     <>
     <VideoContainer to={`/video/${video.id.videoId}`}>
@@ -62,8 +64,13 @@ function Video({ video }) {
      onClick={() => {setToggle(!toggle)}} />
      {
       toggle ?
-      <button>Add to playlist</button>
+      <button onClick={() => {setModal(true)}}>Add to playlist</button>
       :
+      null
+     }
+     {
+      modal ?
+      <Modal /> :
       null
      }
     </>
