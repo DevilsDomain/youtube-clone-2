@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import options from "../assets/options.svg"
+import { useState } from "react";
 
 const VideoContainer = styled(Link)`
   display: flex;
@@ -15,12 +17,13 @@ const VideoContainer = styled(Link)`
     margin: 0;
     padding-left: 10px;
   }
-  div img {
-    width: 350px;
-    height: 200px;
-    border-radius: 20px;
-  }
 `;
+
+const Thumbnail = styled.img`
+  width: 350px;
+  height: 200px;
+  border-radius: 20px;
+`
 
 
 const Title = styled.p`
@@ -35,17 +38,34 @@ const TitleThin = styled.p`
     font-size: 14px;
     padding-bottom: 2px;
 `
+const Options = styled.img`
+  height: 18px;
+  padding-top: 16px;
+  padding-left: 0px;
+`
 
 function Video({ video }) {
+  const [toggle, setToggle] = useState(false)
   return (
+    <>
     <VideoContainer to={`/video/${video.id.videoId}`}>
       <motion.div whileHover={{scale: 1.07}}>
-        <img src={video.snippet.thumbnails.url} alt={video.title} />
+        <Thumbnail src={video.snippet.thumbnails.url} alt={video.title} />
         <Title>{video.title}</Title>
         <TitleThin>{video.channelName}</TitleThin>
         <TitleThin>{video.views} views</TitleThin>
       </motion.div>
     </VideoContainer>
+    <Options src={options}
+     alt="three circles on-top of each other"
+     onClick={() => {setToggle(!toggle)}} />
+     {
+      toggle ?
+      <button>Add to playlist</button>
+      :
+      null
+     }
+    </>
   );
 }
 
