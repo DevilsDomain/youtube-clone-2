@@ -3,6 +3,8 @@ import LogoPNG from '../assets/Logo_of_YouTube_(2015-2017).svg.png';
 import styled from "styled-components";
 import { useSearch } from "./SearchContext";
 import searchIcon from "../assets/Vector.svg"
+import Dropdown from "./Dropdown";
+
 
 const NavbarContainer = styled.div`
   display: flex;
@@ -48,7 +50,10 @@ const SearchButton = styled.button`
   background-position: center;
 `;
 
+
 function Navbar() {
+  // Dummy playlist data
+  const playlists = ['Playlist 1', 'Playlist 2', 'Playlist 3'];
   const { setSearchQuery } = useSearch();
 
   const handleKeyDown = (e) => {
@@ -76,6 +81,11 @@ function Navbar() {
         />
         <SearchButton type="submit"></SearchButton>
       </SearchForm>
+      {
+        playlists.length !== 0 ?
+        <Dropdown playlists={playlists} /> :
+        null
+      }
     </NavbarContainer>
   );
 }
