@@ -42,6 +42,7 @@ const Options = styled.img`
   height: 18px;
   padding-top: 16px;
   padding-left: 0px;
+  cursor: pointer;
 `
 
 function Video({ video }) {
