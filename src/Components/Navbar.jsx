@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useSearch } from "./SearchContext";
 import searchIcon from "../assets/Vector.svg"
 import Dropdown from "./Dropdown";
+import { useLocalStorage } from "./useLocalStorage";
 
 
 const NavbarContainer = styled.div`
@@ -52,8 +53,7 @@ const SearchButton = styled.button`
 
 
 function Navbar() {
-  // Dummy playlist data
-  const playlists = ['Playlist 1', 'Playlist 2', 'Playlist 3'];
+  const [playlists] = useLocalStorage('playlistsObject', []);
   const { setSearchQuery } = useSearch();
 
   const handleKeyDown = (e) => {

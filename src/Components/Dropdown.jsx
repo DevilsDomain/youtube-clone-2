@@ -42,13 +42,14 @@ const DropdownContent = styled.ul`
 `;
 
 function Dropdown({ playlists }) {
+    console.log(playlists)
   return (
     <DropdownContainer>
       <DropdownButton>Playlists</DropdownButton>
       <DropdownContent>
         {playlists.map((playlist, index) => (
           <li key={index}>
-            <p>{playlist}</p>
+            <p>{playlist.name}</p>
           </li>
         ))}
       </DropdownContent>
