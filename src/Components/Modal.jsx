@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -58,7 +59,7 @@ function Modal() {
           <ul>
           {playlists.map((playlist, index) => (
             <li key={index}>
-              <p>{playlist}</p>
+              <Link to={`/playlist/id`}>{playlist}</Link>
             </li>
           ))}
           </ul>

@@ -5,6 +5,7 @@ import Root from './routes/Root.jsx';
 import VideoPage from './routes/VideoPage.jsx';
 import App from './App.jsx';
 import { SearchProvider } from './Components/SearchContext.jsx';
+import PlaylistOverview from './routes/PlaylistOverview.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
         path: '/video/:videoID',
         element: <VideoPage />,
       },
+      {
+        path: '/playlist/:id',
+        element: <PlaylistOverview />
+      }
     ],
   },
 ]);
