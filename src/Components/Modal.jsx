@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import axios from "axios";
-
+import { Link } from 'react-router-dom';
+import { useLocalStorage } from './useLocalStorage';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -24,36 +24,32 @@ const ModalContent = styled.div`
 `;
 
 function Modal() {
-  // Dummy playlist data
-  const [playlists, setPlaylists] = useState([]);
+  const [playlists, setPlaylists, updatePlaylistsStorage] = useLocalStorage('playlistsObject', []);
   const [showInputForm, setShowInputForm] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState('');
+  const [playlistID, setPlaylistID] = useState('');
 
   const handleCreatePlaylistClick = () => {
     setShowInputForm(true);
   };
 
   const handleCreateClick = () => {
-    // Handle the logic for creating the playlist
-    console.log('Creating playlist with name:', newPlaylistName);
     axios.post('https://youtube.thorsteinsson.is/api/playlists', {
-      "name": newPlaylistName
+      name: newPlaylistName
     })
     .then(function (response) {
-      console.log(response);
+      console.log(response.data.id);
+      setPlaylistID(response.data.id);
+      setPlaylists((prevPlaylists) => [...prevPlaylists, { name: newPlaylistName, id: response.data.id }]);
     })
     .catch(function (error) {
       console.log(error);
     });
-  
 
-
-
-    // Update playlists state
-    setPlaylists((prevPlaylists) => [...prevPlaylists, newPlaylistName]);
-    // Reset the state and close inpt
     setShowInputForm(false);
     setNewPlaylistName('');
+    // Update local storage after creating a new playlist
+    updatePlaylistsStorage([...playlists, { name: newPlaylistName, id: playlistID }]);
   };
 
   return (
@@ -71,14 +67,14 @@ function Modal() {
           </>
         ) : (
           <>
-          <ul>
-          {playlists.map((playlist, index) => (
-            <li key={index}>
-              <Link to={`/playlist/id`}>{playlist}</Link>
-            </li>
-          ))}
-          </ul>
-          <button onClick={handleCreatePlaylistClick}>Create New Playlist</button>
+            <ul>
+              {playlists.map((playlist, index) => (
+                <li key={index}>
+                  <Link to={`/playlist/${playlist.id}`}>{playlist.name}</Link>
+                </li>
+              ))}
+            </ul>
+            <button onClick={handleCreatePlaylistClick}>Create New Playlist</button>
           </>
         )}
       </ModalContent>
