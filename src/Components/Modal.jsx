@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from "axios";
+
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -23,7 +25,7 @@ const ModalContent = styled.div`
 
 function Modal() {
   // Dummy playlist data
-  const [playlists, setPlaylists] = useState(['Playlist 1', 'Playlist 2', 'Playlist 3']);
+  const [playlists, setPlaylists] = useState([]);
   const [showInputForm, setShowInputForm] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState('');
 
@@ -34,6 +36,19 @@ function Modal() {
   const handleCreateClick = () => {
     // Handle the logic for creating the playlist
     console.log('Creating playlist with name:', newPlaylistName);
+    axios.post('https://youtube.thorsteinsson.is/api/playlists', {
+      "name": newPlaylistName
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  
+
+
+
     // Update playlists state
     setPlaylists((prevPlaylists) => [...prevPlaylists, newPlaylistName]);
     // Reset the state and close inpt
