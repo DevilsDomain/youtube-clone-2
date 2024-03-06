@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
-import App from '../App';
 import styled from 'styled-components';
+import PlaylistVideos from '../Components/PlaylistVideos';
+import PlaylistOverview from './PlaylistOverview';
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,14 +35,6 @@ const Description = styled.p`
   font-size: 15px;
 `;
 
-const RecVids = styled.h1`
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-  padding-bottom: 5px;
-  font-size: 30px;
-  margin: 0;
-`;
 
 const ContentContainer = styled.div`
   flex: 1; /* Take remaining space */
@@ -57,14 +50,16 @@ function PlaylistWatch() {
   const { id, name, currentVideo } = useParams();
   const { data, error, isLoading } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${currentVideo}`, fetcher);
   const { data: playlistData, error: playlistError, isLoading: playlistIsLoading } = useSWR(`https://youtube.thorsteinsson.is/api/playlists/${id}`, PlaylistFetcher);
-  console.log(playlistData)
 
+  console.log("playlist id: ", id, name, "videoid: ",currentVideo)
+  
   if (playlistError) return <div>failed to load</div>;
   if (playlistIsLoading) return <div>loading...</div>;
-
-
+  
+  
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
+  console.log(playlistData.videos)
 
   let iframeSrc;
   try {
@@ -78,18 +73,19 @@ function PlaylistWatch() {
     <Wrapper>
       <VideoContainer>
         {iframeSrc ? (
-          <VideoPlayer width="1000" height="500" src={iframeSrc}></VideoPlayer>
+          <VideoPlayer width="1000" height="500" src={iframeSrc} allow="accelerometer; autoplay; fullscreen;"></VideoPlayer>
+
         ) : (
           <p>Error loading video</p>
         )}
-        {/* <Title>{data.title}</Title>
+        <Title>{data.title}</Title>
         <Description>{data.description}</Description>
         <Description>{data.channelName}</Description>
-        <Description>{data.views} views</Description> */}
+        <Description>{data.views} views</Description>
       </VideoContainer>
       <ContentContainer>
-        <RecVids>{name}</RecVids>
-        {/* <App /> */}
+        {/* <PlaylistVideos playlistVideos={playlistData.videos} id={id} name={name}/> */}
+        <PlaylistOverview />
       </ContentContainer>
     </Wrapper>
   );

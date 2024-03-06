@@ -47,7 +47,6 @@ const Options = styled.img`
 `
 
 function Video({ video, playlist, id, name }) {
-  console.log(video.videoId)
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
   return (
