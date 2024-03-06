@@ -13,14 +13,14 @@ function PlaylistOverview() {
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  console.log(data)
+  console.log(data.videos)
   return (
     <div>
       <h1>{name}</h1>
       <p>{id}</p>
-      {/* {data.map((video) => (
-        <Video video={video} key={video.id.videoId} />
-      ))} */}
+      {data.videos.map((video, index) => (
+        <Video video={video} playlist={true} key={index} />
+      ))}
     </div>
   )
 }

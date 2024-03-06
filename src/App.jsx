@@ -26,11 +26,12 @@ function App() {
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
+  console.log(data)
 
   return (
     <VideosContainer>
       {data.map((video) => (
-        <Video video={video} key={video.id.videoId} />
+        <Video video={video} playlist={false} key={video.id.videoId} />
       ))}
     </VideosContainer>
   );

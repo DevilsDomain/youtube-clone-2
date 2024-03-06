@@ -46,14 +46,15 @@ const Options = styled.img`
   cursor: pointer;
 `
 
-function Video({ video }) {
+function Video({ video, playlist }) {
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
+  console.log(video)
   return (
     <>
-    <VideoContainer to={`/video/${video.id.videoId}`}>
+    <VideoContainer to={`/video/${playlist ? video.videoId : video.id.videoId}`}>
       <motion.div whileHover={{scale: 1.07}}>
-        <Thumbnail src={video.snippet.thumbnails.url} alt={video.title} />
+        <Thumbnail src={playlist ? video.thumbnailUrl : video.snippet.thumbnails.url} alt={video.title} />
         <Title>{video.title}</Title>
         <TitleThin>{video.channelName}</TitleThin>
         <TitleThin>{video.views} views</TitleThin>

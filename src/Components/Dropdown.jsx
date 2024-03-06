@@ -47,7 +47,6 @@ const DropdownContent = styled.ul`
 
 
 function Dropdown({ playlists }) {
-    console.log(playlists)
   return (
     <DropdownContainer>
       <DropdownButton>Playlists</DropdownButton>
