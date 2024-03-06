@@ -16,7 +16,8 @@ const DropdownButton = styled.button`
 `;
 
 const DropdownContent = styled.ul`
-  display: none;
+  opacity: 0;
+  visibility: hidden;
   position: absolute;
   background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -26,9 +27,11 @@ const DropdownContent = styled.ul`
   padding: 8px;
   margin-top: 8px;
   z-index: 1;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Add this line for easing effect */
 
   ${DropdownContainer}:hover & {
-    display: block;
+    opacity: 1;
+    visibility: visible;
   }
 
   li {
@@ -42,6 +45,7 @@ const DropdownContent = styled.ul`
   }
 `;
 
+
 function Dropdown({ playlists }) {
     console.log(playlists)
   return (
@@ -50,7 +54,7 @@ function Dropdown({ playlists }) {
       <DropdownContent>
         {playlists.map((playlist, index) => (
           <li key={index}>
-            <Link to={`/playlist/${playlist.id}`}>{playlist.name}</Link>
+            <Link to={`/playlist/${playlist.id}/${playlist.name}`}>{playlist.name}</Link>
           </li>
         ))}
       </DropdownContent>
