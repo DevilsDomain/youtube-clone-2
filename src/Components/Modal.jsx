@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import axios from "axios";
-import { Link } from 'react-router-dom';
 import { useLocalStorage } from './useLocalStorage';
 
 const ModalOverlay = styled.div`
@@ -22,6 +21,10 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 10px;
 `;
+
+const PlaylistName = styled.p`
+  cursor: pointer;
+`
 
 function Modal() {
   const [playlists, setPlaylists, updatePlaylistsStorage] = useLocalStorage('playlistsObject', []);
@@ -52,6 +55,25 @@ function Modal() {
     updatePlaylistsStorage([...playlists, { name: newPlaylistName, id: playlistID }]);
   };
 
+  const handleAddToPlaylist = (playlistId) => {
+    console.log("Adding video to playlist:", playlistId);
+  
+    // Assume you have the video data accessible in this component.
+    const videoData = {
+      videoId: "w-Xts7qE8gg"
+    };
+  
+    axios.post(`https://youtube.thorsteinsson.is/api/playlists/${playlistId}/videos`, {
+      videoData,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  };
+
   return (
     <ModalOverlay>
       <ModalContent>
@@ -70,7 +92,7 @@ function Modal() {
             <ul>
               {playlists.map((playlist, index) => (
                 <li key={index}>
-                  <Link to={`/playlist/${playlist.id}/${playlist.name}`}>{playlist.name}</Link>
+                  <PlaylistName onClick={() => handleAddToPlaylist(playlist.id)}>{playlist.name}</PlaylistName>
                 </li>
               ))}
             </ul>

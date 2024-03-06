@@ -13,7 +13,6 @@ function PlaylistOverview() {
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  console.log(data.videos)
   return (
     <div>
       <h1>{name}</h1>

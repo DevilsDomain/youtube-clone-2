@@ -49,7 +49,6 @@ const Options = styled.img`
 function Video({ video, playlist }) {
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
-  console.log(video)
   return (
     <>
     <VideoContainer to={`/video/${playlist ? video.videoId : video.id.videoId}`}>
