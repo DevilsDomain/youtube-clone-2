@@ -18,7 +18,7 @@ function PlaylistOverview() {
       <h1>{name}</h1>
       <p>{id}</p>
       {data.videos.map((video, index) => (
-        <Video video={video} playlist={true} key={index} />
+        <Video video={video} playlist={true} id={id} name={name} key={index} />
       ))}
     </div>
   )
