@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const DropdownContainer = styled.div`
   position: relative;
@@ -49,7 +50,7 @@ function Dropdown({ playlists }) {
       <DropdownContent>
         {playlists.map((playlist, index) => (
           <li key={index}>
-            <p>{playlist.name}</p>
+            <Link to={`/playlist/${playlist.id}`}>{playlist.name}</Link>
           </li>
         ))}
       </DropdownContent>
