@@ -53,7 +53,7 @@ function Video({ video, playlist }) {
     <>
     <VideoContainer to={`/video/${playlist ? video.videoId : video.id.videoId}`}>
       <motion.div whileHover={{scale: 1.07}}>
-        <Thumbnail src={playlist ? video.thumbnailUrl : video.snippet.thumbnails.url} alt={video.title} />
+        <Thumbnail src={video.snippet.thumbnails.url} alt={video.title} />
         <Title>{video.title}</Title>
         <TitleThin>{video.channelName}</TitleThin>
         <TitleThin>{video.views} views</TitleThin>
@@ -70,7 +70,7 @@ function Video({ video, playlist }) {
      }
      {
       modal ?
-      <Modal /> :
+      <Modal videoData={video} /> :
       null
      }
     </>

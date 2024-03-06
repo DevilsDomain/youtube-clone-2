@@ -26,7 +26,7 @@ const PlaylistName = styled.p`
   cursor: pointer;
 `
 
-function Modal() {
+function Modal({videoData}) {
   const [playlists, setPlaylists, updatePlaylistsStorage] = useLocalStorage('playlistsObject', []);
   const [showInputForm, setShowInputForm] = useState(false);
   const [newPlaylistName, setNewPlaylistName] = useState('');
@@ -55,17 +55,9 @@ function Modal() {
     updatePlaylistsStorage([...playlists, { name: newPlaylistName, id: playlistID }]);
   };
 
-  const handleAddToPlaylist = (playlistId) => {
+  const handleAddToPlaylist = (playlistId, videoData) => {
     console.log("Adding video to playlist:", playlistId);
-  
-    // Assume you have the video data accessible in this component.
-    const videoData = {
-      videoId: "w-Xts7qE8gg"
-    };
-  
-    axios.post(`https://youtube.thorsteinsson.is/api/playlists/${playlistId}/videos`, {
-      videoData,
-    })
+    axios.post(`https://youtube.thorsteinsson.is/api/playlists/${playlistId}/videos`, videoData)
     .then(function (response) {
       console.log(response);
     })
@@ -92,7 +84,7 @@ function Modal() {
             <ul>
               {playlists.map((playlist, index) => (
                 <li key={index}>
-                  <PlaylistName onClick={() => handleAddToPlaylist(playlist.id)}>{playlist.name}</PlaylistName>
+                  <PlaylistName onClick={() => handleAddToPlaylist(playlist.id, videoData)}>{playlist.name}</PlaylistName>
                 </li>
               ))}
             </ul>
