@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <VideoPage />,
       },
       {
-        path: '/playlist/:id',
+        path: '/playlist/:id/:name',
         element: <PlaylistOverview />
       }
     ],

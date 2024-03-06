@@ -70,7 +70,7 @@ function Modal() {
             <ul>
               {playlists.map((playlist, index) => (
                 <li key={index}>
-                  <Link to={`/playlist/${playlist.id}`}>{playlist.name}</Link>
+                  <Link to={`/playlist/${playlist.id}/${playlist.name}`}>{playlist.name}</Link>
                 </li>
               ))}
             </ul>
