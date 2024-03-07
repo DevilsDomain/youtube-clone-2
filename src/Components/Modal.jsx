@@ -57,7 +57,10 @@ function Modal({videoData}) {
 
   const handleAddToPlaylist = (playlistId, videoData) => {
     console.log("Adding video to playlist:", playlistId);
-    axios.post(`https://youtube.thorsteinsson.is/api/playlists/${playlistId}/videos`, videoData)
+    const { id: { videoId }, ...rest } = videoData;
+    const modifiedVideoData = { videoId, ...rest };
+    
+    axios.post(`https://youtube.thorsteinsson.is/api/playlists/${playlistId}/videos`, modifiedVideoData)
     .then(function (response) {
       console.log(response);
     })

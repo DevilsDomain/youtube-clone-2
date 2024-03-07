@@ -4,6 +4,7 @@ import styled from "styled-components";
 import options from "../assets/options.svg"
 import { useState } from "react";
 import Modal from "./Modal";
+import axios from "axios";
 
 const VideoContainer = styled(Link)`
   display: flex;
@@ -51,8 +52,22 @@ function Video({ video, playlist, id, name }) {
   const [modal, setModal] = useState(false)
 
   const handleClick = (e) => {
-    window.location.href = playlist ? (`/playlist/${id}/${name}/${video.id.videoId}`) :  (`/video/${video.id.videoId}`)
+    window.location.href = playlist ? (`/playlist/${id}/${name}/${video.videoId}`) :  (`/video/${video.videoId}`)
   }
+
+  const deleteVideo = () => {
+    axios
+      .delete(`https://youtube.thorsteinsson.is/api/playlists/${id}/videos/${video.videoId}`)
+      .then((response) => {
+        // Handle success, you might want to update the UI or perform other actions
+        console.log("Video deleted successfully");
+        console.log(response)
+      })
+      .catch((error) => {
+        // Handle error, you might want to show an error message
+        console.error("Error deleting video:", error);
+      });
+  };
 
   return (
     <>
@@ -78,6 +93,11 @@ function Video({ video, playlist, id, name }) {
      {
       modal ?
       <Modal videoData={video} /> :
+      null
+     }
+     {
+      playlist ? 
+      <button onClick={deleteVideo}>Delete</button> :
       null
      }
     </>

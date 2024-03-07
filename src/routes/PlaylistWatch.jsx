@@ -62,7 +62,7 @@ function PlaylistWatch() {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  const videoIDs = playlistData.videos.map((video) => video.id.videoId);
+  const videoIDs = playlistData.videos.map((video) => video.videoId);
   
 
   let ReactPlayerUrl;
