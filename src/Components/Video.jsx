@@ -49,16 +49,23 @@ const Options = styled.img`
 function Video({ video, playlist, id, name }) {
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
+
+  const handleClick = (e) => {
+    window.location.href = playlist ? (`/playlist/${id}/${name}/${video.id.videoId}`) :  (`/video/${video.id.videoId}`)
+  }
+
   return (
     <>
-    <VideoContainer to={playlist ? (`/playlist/${id}/${name}/${video.id.videoId}`) :  (`/video/${video.id.videoId}`)}>
-      <motion.div whileHover={{scale: 1.07}}>
-        <Thumbnail src={video.snippet.thumbnails.url} alt={video.title} />
-        <Title>{video.title}</Title>
-        <TitleThin>{video.channelName}</TitleThin>
-        <TitleThin>{video.views} views</TitleThin>
-      </motion.div>
-    </VideoContainer>
+    <div onClick={(e) => handleClick(e)}>
+      <VideoContainer>
+        <motion.div whileHover={{scale: 1.07}}>
+          <Thumbnail src={video.snippet.thumbnails.url} alt={video.title} />
+          <Title>{video.title}</Title>
+          <TitleThin>{video.channelName}</TitleThin>
+          <TitleThin>{video.views} views</TitleThin>
+        </motion.div>
+      </VideoContainer>
+    </div>
     <Options src={options}
      alt="three circles on-top of each other"
      onClick={() => {setToggle(!toggle)}} />

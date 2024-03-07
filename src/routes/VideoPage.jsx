@@ -15,11 +15,6 @@ const VideoContainer = styled.div`
   padding-top: 50px;
 `;
 
-const VideoPlayer = styled.iframe`
-  border-radius: 20px;
-  border: none;
-`;
-
 const Title = styled.p`
   font-family: "Roboto", sans-serif;
   font-weight: 700;

@@ -49,8 +49,6 @@ const PlaylistFetcher = (url) => fetch(url).then((r) => r.json());
 
 
 function PlaylistWatch() {
-
-    
   const { id, name, currentVideo } = useParams();
   const { data, error, isLoading } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${currentVideo}`, fetcher);
   const { data: playlistData, error: playlistError, isLoading: playlistIsLoading } = useSWR(`https://youtube.thorsteinsson.is/api/playlists/${id}`, PlaylistFetcher);
@@ -61,13 +59,10 @@ function PlaylistWatch() {
   if (playlistError) return <div>failed to load</div>;
   if (playlistIsLoading) return <div>loading...</div>;
   
-  
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  console.log(playlistData)
   const videoIDs = playlistData.videos.map((video) => video.id.videoId);
-  console.log(videoIDs);
   
 
   let ReactPlayerUrl;
@@ -79,8 +74,6 @@ function PlaylistWatch() {
   }
 
   const handleOnEnded = () => {
-    console.log("video ended!");
-
     // Find the index of the current video ID
     const currentIndex = videoIDs.indexOf(currentVideoID);
 
@@ -108,9 +101,6 @@ function PlaylistWatch() {
            controls={true}
            playing={true}
            onEnded={handleOnEnded}
-           onStart={() => {
-            console.log("video started")
-           }}
             />
 
         ) : (
