@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import options from "../assets/options.svg"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import axios from "axios";
 
@@ -68,6 +68,24 @@ function Video({ video, playlist, id, name }) {
         console.error("Error deleting video:", error);
       });
   };
+
+
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      setModal(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+
 
   return (
     <>

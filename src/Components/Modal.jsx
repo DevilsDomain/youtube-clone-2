@@ -36,6 +36,7 @@ function Modal({videoData}) {
     setShowInputForm(true);
   };
 
+
   const handleCreateClick = () => {
     axios.post('https://youtube.thorsteinsson.is/api/playlists', {
       name: newPlaylistName
