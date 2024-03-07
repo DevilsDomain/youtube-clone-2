@@ -57,14 +57,25 @@ function Navbar() {
   const { setSearchQuery } = useSearch();
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      setSearchQuery(e.target.value);
+  if (e.key === 'Enter') {
+    const inputValue = e.target.value.trim(); // Trim leading and trailing whitespaces
+
+    if (inputValue === "") {
+      e.preventDefault(); // Prevent the form from submitting
+      return;
     }
+
+    setSearchQuery(inputValue);
   }
+}
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     const inputValue = e.target.querySelector('input').value;
+    if (inputValue === "") {
+      e.preventDefault(); // Prevent the form from submitting
+      return;
+    }
     setSearchQuery(inputValue);
   };
 
