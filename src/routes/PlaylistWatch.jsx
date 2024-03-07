@@ -122,7 +122,6 @@ function PlaylistWatch() {
         <Description>{data.views} views</Description>
       </VideoContainer>
       <ContentContainer>
-        {/* <PlaylistVideos playlistVideos={playlistData.videos} id={id} name={name}/> */}
         <PlaylistOverview />
       </ContentContainer>
     </Wrapper>
