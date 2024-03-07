@@ -47,7 +47,7 @@ const Options = styled.img`
   cursor: pointer;
 `
 
-function Video({ video, playlist, id, name }) {
+function Video({ video, playlist, id, name, onVideoDelete }) {
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
 
@@ -62,6 +62,7 @@ function Video({ video, playlist, id, name }) {
         // Handle success, you might want to update the UI or perform other actions
         console.log("Video deleted successfully");
         console.log(response)
+        onVideoDelete()
       })
       .catch((error) => {
         // Handle error, you might want to show an error message
