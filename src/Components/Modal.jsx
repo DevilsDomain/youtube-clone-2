@@ -25,7 +25,28 @@ const ModalContent = styled.div`
 
 const PlaylistName = styled.p`
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
+
+const CreatePlaylistButton = styled.button`
+  border: none;
+  background-color: MediumSeaGreen;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+`
+
+const CreateButton = styled.button`
+  border: none;
+  background-color: MediumSeaGreen;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 5px;
+`
+
 
 function Modal({ videoData }) {
   const [playlists, setPlaylists, updatePlaylistsStorage] = useLocalStorage('playlistsObject', []);
@@ -92,7 +113,7 @@ function Modal({ videoData }) {
               value={newPlaylistName}
               onChange={(e) => setNewPlaylistName(e.target.value)}
             />
-            <button onClick={handleCreateClick}>Create</button>
+            <CreateButton onClick={handleCreateClick}>Create</CreateButton>
           </>
         ) : (
           <>
@@ -103,7 +124,7 @@ function Modal({ videoData }) {
                 </li>
               ))}
             </ul>
-            <button onClick={handleCreatePlaylistClick}>Create New Playlist</button>
+            <CreatePlaylistButton onClick={handleCreatePlaylistClick}>Create New Playlist</CreatePlaylistButton>
           </>
         )}
       </ModalContent>

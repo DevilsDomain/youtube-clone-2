@@ -47,6 +47,17 @@ const Options = styled.img`
   cursor: pointer;
 `
 
+const AddToPlaylistButton = styled.button`
+  border: none;
+  background-color: MediumSeaGreen;
+  color: white;
+`
+const DeleteButton = styled.button`
+  border: none;
+  background-color: FireBrick;
+  color: white;
+`
+
 function Video({ video, playlist, id, name, onVideoDelete }) {
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
@@ -105,7 +116,7 @@ function Video({ video, playlist, id, name, onVideoDelete }) {
      onClick={() => {setToggle(!toggle)}} />
      {
       toggle ?
-      <button onClick={() => {setModal(true)}}>Add to playlist</button>
+      <AddToPlaylistButton onClick={() => {setModal(true)}}>Add to playlist</AddToPlaylistButton>
       :
       null
      }
@@ -116,7 +127,7 @@ function Video({ video, playlist, id, name, onVideoDelete }) {
      }
      {
       playlist ? 
-      <button onClick={deleteVideo}>Delete</button> :
+      <DeleteButton onClick={deleteVideo}>Delete</DeleteButton> :
       null
      }
     </>

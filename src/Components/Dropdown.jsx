@@ -4,15 +4,21 @@ import { Link } from "react-router-dom";
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
+  font-family: "Roboto", sans-serif;
 `;
 
-const DropdownButton = styled.button`
+const DropdownButton = styled.p`
   background-color: #f8f8f7;
   color: black;
   padding: 8px 16px;
-  border: 1px solid grey;
-  border-radius: 4px;
+  border: none;
   cursor: pointer;
+  background-color: white;
+
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const DropdownContent = styled.ul`
@@ -25,7 +31,6 @@ const DropdownContent = styled.ul`
   border-top: none;
   border-radius: 0 0 4px 4px;
   padding: 8px;
-  margin-top: 8px;
   z-index: 1;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Add this line for easing effect */
 
