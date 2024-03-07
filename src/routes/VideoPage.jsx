@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import App from '../App';
 import styled from 'styled-components';
+import ReactPlayer from 'react-player/youtube'
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -58,19 +60,26 @@ function VideoPage() {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  let iframeSrc;
+  let ReactPlayerUrl;
   try {
-    iframeSrc = `${data.url.substring(0, 24)}embed/${videoID}`;
+    ReactPlayerUrl = `${data.url.substring(0, 24)}embed/${videoID}`;
   } catch (err) {
     console.error("Error creating iframe src:", err);
-    iframeSrc = null;
+    ReactPlayerUrl = null;
   }
 
   return (
     <Wrapper>
       <VideoContainer>
-        {iframeSrc ? (
-          <VideoPlayer width="1000" height="500" src={iframeSrc} allow="accelerometer; autoplay; fullscreen;"></VideoPlayer>
+      {ReactPlayerUrl ? (
+          <ReactPlayer wrapper={VideoContainer}
+           width={1000} 
+           height={500} 
+           url={ReactPlayerUrl}
+           controls={true}
+           playing={true}
+            />
+
         ) : (
           <p>Error loading video</p>
         )}
