@@ -52,7 +52,7 @@ function Video({ video, playlist, id, name }) {
   const [modal, setModal] = useState(false)
 
   const handleClick = (e) => {
-    window.location.href = playlist ? (`/playlist/${id}/${name}/${video.videoId}`) :  (`/video/${video.videoId}`)
+    window.location.href = playlist ? (`/playlist/${id}/${name}/${video.videoId}`) :  (`/video/${video.id.videoId}`)
   }
 
   const deleteVideo = () => {
