@@ -1,8 +1,10 @@
 import { useParams } from 'react-router-dom';
 import useSWR from 'swr';
 import styled from 'styled-components';
-import PlaylistVideos from '../Components/PlaylistVideos';
 import PlaylistOverview from './PlaylistOverview';
+import ReactPlayer from 'react-player/youtube'
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,10 +16,10 @@ const VideoContainer = styled.div`
   padding-top: 50px;
 `;
 
-const VideoPlayer = styled.iframe`
-  border-radius: 20px;
-  border: none;
-`;
+// const VideoPlayer = styled.ReactPlayer`
+//   border-radius: 20px;
+//   border: none;
+// `;
 
 const Title = styled.p`
   font-family: "Roboto", sans-serif;
@@ -47,33 +49,69 @@ const PlaylistFetcher = (url) => fetch(url).then((r) => r.json());
 
 
 function PlaylistWatch() {
+
+    
   const { id, name, currentVideo } = useParams();
   const { data, error, isLoading } = useSWR(`https://youtube.thorsteinsson.is/api/videos/${currentVideo}`, fetcher);
   const { data: playlistData, error: playlistError, isLoading: playlistIsLoading } = useSWR(`https://youtube.thorsteinsson.is/api/playlists/${id}`, PlaylistFetcher);
+  const [currentVideoID, setCurrentVideoID] = useState(currentVideo)
+  const navigate = useNavigate(); 
 
-  console.log("playlist id: ", id, name, "videoid: ",currentVideo)
-  
+
   if (playlistError) return <div>failed to load</div>;
   if (playlistIsLoading) return <div>loading...</div>;
   
   
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-  console.log(playlistData.videos)
 
-  let iframeSrc;
+  console.log(playlistData)
+  const videoIDs = playlistData.videos.map((video) => video.id.videoId);
+  console.log(videoIDs);
+  
+
+  let ReactPlayerUrl;
   try {
-    iframeSrc = `${data.url.substring(0, 24)}embed/${currentVideo}`;
+    ReactPlayerUrl = `${data.url.substring(0, 24)}embed/${currentVideo}`;
   } catch (err) {
     console.error("Error creating iframe src:", err);
-    iframeSrc = null;
+    ReactPlayerUrl = null;
   }
+
+  const handleOnEnded = () => {
+    console.log("video ended!");
+
+    // Find the index of the current video ID
+    const currentIndex = videoIDs.indexOf(currentVideoID);
+
+    // If the current video is not the last one, set the next video ID
+    if (currentIndex < videoIDs.length - 1) {
+      const nextVideoID = videoIDs[currentIndex + 1];
+      setCurrentVideoID(nextVideoID);
+
+      // Update the URL to navigate to the next video
+      navigate(`/playlist/${id}/${name}/${nextVideoID}`);
+    }
+  }
+
+
+
 
   return (
     <Wrapper>
       <VideoContainer>
-        {iframeSrc ? (
-          <VideoPlayer width="1000" height="500" src={iframeSrc} allow="autoplay; fullscreen;"></VideoPlayer>
+        {ReactPlayerUrl ? (
+          <ReactPlayer wrapper={VideoContainer}
+           width={1000} 
+           height={500} 
+           url={ReactPlayerUrl}
+           controls={true}
+           playing={true}
+           onEnded={handleOnEnded}
+           onStart={() => {
+            console.log("video started")
+           }}
+            />
 
         ) : (
           <p>Error loading video</p>
