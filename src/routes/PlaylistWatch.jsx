@@ -73,7 +73,7 @@ function PlaylistWatch() {
     <Wrapper>
       <VideoContainer>
         {iframeSrc ? (
-          <VideoPlayer width="1000" height="500" src={iframeSrc} allow="accelerometer; autoplay; fullscreen;"></VideoPlayer>
+          <VideoPlayer width="1000" height="500" src={iframeSrc} allow="autoplay; fullscreen;"></VideoPlayer>
 
         ) : (
           <p>Error loading video</p>
